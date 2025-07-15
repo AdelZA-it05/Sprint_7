@@ -5,4 +5,16 @@ DELETE_URL = 'courier/'
 ORDER_URL = 'orders'
 ORDER_ACCEPT_URL = '/accept/'
 ORDER_TRUCK_URL = '/track'
+MSG_DUPLICATE_COURIER = 'Этот логин уже используется. Попробуйте другой.'
+MSG_OK_CREATE = {'ok': True}
+MSG_NO_DATA_FOR_CREATE = 'Недостаточно данных для создания учетной записи'
+MSG_LOGIN_IS_USED = 'Этот логин уже используется. Попробуйте другой.'
+MSG_OUT_COURIER_THIS_ID = 'Курьера с таким id нет.'
+MSG_OUT_ARG = 'не задан аргумент'
+MSG_OUT_DATA_FOR_LOGIN = 'Недостаточно данных для входа'
+MSG_UZ_NOT_FOUND = 'Учетная запись не найдена'
+MSG_NOT_EXIST_COURIER_THIS_ID = 'Курьера с таким id не существует'
+MSG_OUT_ORDER_THIS_ID = 'Заказа с таким id не существует'
+MSG_ORDER_NOT_FOUND = 'Заказ не найден'
+
 

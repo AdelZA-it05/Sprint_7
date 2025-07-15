@@ -1,5 +1,8 @@
 import allure
 from faker import Faker
+
+import data
+
 fake = Faker()
 
 
@@ -14,37 +17,25 @@ class TestDeleteCourier:
     @allure.testcase('Тест-кейс из финального задания Sprtint_7')
     @allure.issue('Ссылка на баг', 'BUG-007')
 
-    @allure.step('неуспешный запрос возвращает соответствующую ошибку')
-    @allure.step('если отправить запрос с несуществующим id, вернётся ошибка')
+    @allure.title('неуспешный запрос возвращает соответствующую ошибку')
+    @allure.title('если отправить запрос с несуществующим id, вернётся ошибка')
     def test_delete_fake_courier(self):
         testdeletecourier = CourierMethods()
         responce = testdeletecourier.delete_courier(fake.random_int(1, 100))
-        # print(responce)
-        assert responce[0] == 404
+        assert responce[0] == 404 and responce[1]["message"] == data.MSG_OUT_COURIER_THIS_ID
 
-    @allure.step('успешный запрос возвращает "ok":true')
+    @allure.title('успешный запрос возвращает "ok":true')
     def test_delete_exist_courier(self):
         testdeletecourier = CourierMethods()
         courier_for_delete = testdeletecourier.create_courier()
-        # print(courier_for_delete[2][0], courier_for_delete[2][1])
         id_courier = testdeletecourier.login_courier(courier_for_delete[2][0], courier_for_delete[2][1])
-        # login_courier(courier[2][0], courier[2][1])[1]["id"]
-        # print(id_courier)
         responce = testdeletecourier.delete_courier(id_courier[1]["id"])
-        # responce = testdeletecourier.delete_courier(str(id_courier))
-        print(responce)
-        assert responce[1]== {'ok': True}
+        assert responce[1]== data.MSG_OK_CREATE
 
-    @allure.step('если отправить запрос без id, вернётся ошибка')
+    @allure.title('если отправить запрос без id, вернётся ошибка')
     def test_delete_out_id_courier(self):
         testdeletecourier = CourierMethods()
-        try:
-            responce = testdeletecourier.delete_courier()
-        except Exception:
-            responce = 'не задан аргумент'
-        # print(responce)
-        assert responce == 'не задан аргумент'
-
-
+        responce = testdeletecourier.delete_courier()
+        assert responce[0] == -1 and responce[1] == data.MSG_OUT_ARG
 
 

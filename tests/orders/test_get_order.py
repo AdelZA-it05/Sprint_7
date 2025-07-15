@@ -1,5 +1,8 @@
 import pytest
 from faker import Faker
+
+import data
+
 fake = Faker()
 import allure
 
@@ -13,26 +16,23 @@ class TestAcceptOrder:
 
     @allure.title('проверка ручек принятия заказа')
     @allure.description('Проверка работы и вывода корректной информации')
-    @allure.testcase('Тест-кейс из финального задания Sprtint_7')
+    @allure.testcase('Тест-кейс из финального задания Sprint_7')
     @allure.issue('Ссылка на баг', 'BUG-007')
 
-    @allure.step('успешный запрос возвращает объект с заказом')
+    @allure.title('успешный запрос возвращает объект с заказом')
     def test_success_get_order_return_order(self, authorize_courier, order):
         testgetorder = OrderMethods()
         responce = testgetorder.get_order_id(order[1]["track"])
         assert list(responce[1].keys()) == ['order']
 
-    @allure.step('запрос без номера заказа возвращает ошибку')
+    @allure.title('запрос без номера заказа возвращает ошибку')
     def test_get_order_out_number_order(self, authorize_courier, order):
         testgetorder = OrderMethods()
-        try:
-            responce = testgetorder.get_order_id()
-        except TypeError:
-            responce = 'не задан номер заказа'
-        assert responce == 'не задан номер заказа'
+        responce = testgetorder.get_order_id()
+        assert responce[0] == -1 and responce[1] == data.MSG_OUT_ARG
 
-    @allure.step('запрос с несуществующим заказом возвращает ошибку')
+    @allure.title('запрос с несуществующим заказом возвращает ошибку')
     def test_success_get_not_success_number_order(self, authorize_courier, order):
         testgetorder = OrderMethods()
         responce = testgetorder.get_order_id(fake.random_int(1, 100))
-        assert responce[1]["message"] == 'Заказ не найден'
+        assert responce[0] == 404 and responce[1]["message"] == data.MSG_ORDER_NOT_FOUND
