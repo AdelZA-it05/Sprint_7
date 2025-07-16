@@ -17,13 +17,14 @@ class TestLoginCourier:
     @allure.testcase('Тест-кейс из финального задания Sprint_7')
     @allure.issue('Ссылка на баг', 'BUG-007')
 
-    @allure.title('курьер может авторизоваться')
+    @allure.step('курьер может авторизоваться')
+    @allure.step('успешный запрос возвращает id')
     def test_courier_can_login(self, courier):
         testlogincourier = CourierMethods()
         responce = testlogincourier.login_courier(*courier[2])
         assert responce[0] == 200 and list(responce[1].keys()) == ['id']
 
-    @allure.title('для авторизации нужно передать все обязательные поля')
+    @allure.step('для авторизации нужно передать все обязательные поля')
     def test_empty_mandatory_param_login(self, courier):
         testlogincourier = CourierMethods()
         responce = testlogincourier.login_courier(*courier[2], is_param=2)
@@ -47,8 +48,4 @@ class TestLoginCourier:
         responce = testlogincourier.login_courier(fake.user_name(), courier[2][1])
         assert responce[0] == 404 and responce[1]["message"] == data.MSG_UZ_NOT_FOUND
 
-    @allure.step('успешный запрос возвращает id')
-    def test_correct_login_return_id(self, courier):
-        testlogincourier = CourierMethods()
-        responce = testlogincourier.login_courier(*courier[2])
-        assert responce[0] == 200 and list(responce[1].keys()) == ['id']
+    

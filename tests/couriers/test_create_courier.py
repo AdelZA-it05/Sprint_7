@@ -16,15 +16,15 @@ class TestCreateCourier:
     @allure.testcase('Тест-кейс из финального задания Sprtint_7')
     @allure.issue('Ссылка на баг', 'BUG-007')
 
-    @allure.title('создание курьера')
-    @allure.title('запрос возвращает правильный код ответа')
-    @allure.title('успешный запрос возвращает "ok"')
+    @allure.step('создание курьера')
+    @allure.step('запрос возвращает правильный код ответа')
+    @allure.step('успешный запрос возвращает "ok"')
     def test_create_one_courier(self):
         testcreatecourier = CourierMethods()
         responce = testcreatecourier.create_courier()
         assert responce[0] == 201 and responce[1] == data.MSG_OK_CREATE
 
-    @allure.step('нельзя создать двух одинаковых курьеров')
+    @allure.title('нельзя создать двух одинаковых курьеров')
     def test_create_duplicate_courier(self, courier):
         testcreatecourier = CourierMethods()
         responce = testcreatecourier.create_courier(*courier[2])

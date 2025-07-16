@@ -19,7 +19,6 @@ class TestAcceptOrder:
     @allure.testcase('Тест-кейс из финального задания Sprint_7')
     @allure.issue('Ссылка на баг', 'BUG-007')
 
-# Можно через параметризацию, в задании не указано, поэтому отдельно каждый тест
 
     @allure.title('успешный запрос возвращает"ok":true')
     def test_success_accept_order_return_ok(self, authorize_courier, order):
